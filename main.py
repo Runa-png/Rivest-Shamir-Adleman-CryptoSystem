@@ -1,10 +1,14 @@
 from functions.genPrime import uniquePrime
 from functions.findCoprime import findCoprime
-from functions.convertString import convertString
+from functions.convertString import convertString, convertInt
+from functions.encrypt import encrypt
+from functions.decrypt import decrypt
+
+from functions.generateKeys import genKeys
 
 class Config:
-  message = 73878237
-  digitCount = int(len(str(message)) / 2) + 1
+  message = "INSERT YOU MESSAGE HERE"
+  digitCount = (int(len(str(message)) / 2) + 1) * 3
 
   def convert(self):
     self.message = convertString(self.message)
@@ -12,62 +16,29 @@ class Config:
 def main():
   config = Config()
 
+  unencryptedMessage = (config.message)
+
   config.convert()
 
-  # Prime one and prime two
-  p,q = uniquePrime(config.digitCount)
+  private, public = genKeys(config)
+  print(f"Public Key: {public}")
 
-  n = p * q
+  message = int(config.message)
 
-  # Regenerate bytes
-  count = 0
-  while n < config.message:
-    exit()
-
-  
-  #print("generating phi")
-  phi = (p - 1) * (q - 1)
-
-  #print("finding coprime")
-  e = findCoprime(phi)
-
-  ## d is multiplicative inverse of e
-  #print("Getting inverse")
-  d = pow(e, -1, phi)
-
-  ## Testing
-  #print("Testing")
-  if (e*(e**-1)) % phi != 1:
-    print("Multiplicative inverse DIDN'T work correctly")
-
-  private = (n,d)
-  public = (n,e)
-
-  #print("Encrypting")
   ## Encrypt
-  m = config.message
-
-  c = pow(m,e,n)
-  # c = (m**e) % n
+  encrypted = encrypt(message, public)
 
   ## Decrypt
-  #print("Decrypting")
-  
-  decrypted = pow(c,d,n)
-  #decrypted = (c**d) % n
+  decrypted = decrypt(encrypted, private)
 
-  if decrypted != m:
-    print(f"Message: {m} Encrypted: {c} Decrypted: {decrypted}")
-    print(f"prime one: {p}, prime two: {q}")
-    print(f"Phi: {phi}")
-    print(f"Inverse E: {d}, E: {e}")
-    print(f"")
-  else:
-    print(f"Message {m} Decrypted {decrypted}")
+  ## Reverse convert to integers
+  decryptedString = convertInt(decrypted)
+
+  print(f" Message:  {unencryptedMessage} \n Encrypted: {encrypted} \n Decrypted: {decryptedString}")
 
 
 if __name__ == '__main__':
   flag = True
   while flag:
     main()
-    # flag = False
+    flag = False

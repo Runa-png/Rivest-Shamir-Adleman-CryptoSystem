@@ -10,7 +10,6 @@ def genPrime(digits):
     primeStatus = isprime(prime)
 
     if primeStatus:
-      print("Found prime")
       return prime
 
 def uniquePrime(digits):  
