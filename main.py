@@ -31,6 +31,25 @@ def decryptData(username, message):
   
   return (decryptedString)
 
+def encryptData(username, message):
+  config = Config
+  
+  messageDataVar = messageData
+
+  messageDataVar.message = message
+
+  asciiList = convertToAscii(messageDataVar.message)
+
+  key = getUserPublicKey(username)
+
+  encryptedAscii = list(map(lambda x: encrypt(x, key), asciiList))
+
+  normalisedEncryptedAscii = normaliseList(encryptedAscii, messageDataVar, config)
+
+  normalisedEncryptedString = "".join(normalisedEncryptedAscii)
+
+  return (normalisedEncryptedString)
+
 class Config:
   # Choose how many digits the prime numbers should have
   digitCount = 4
@@ -60,27 +79,13 @@ if __name__ == '__main__':
       addUser(username, (private), (public))
 
     case "2":
-      config = Config
-      
-      messageDataVar = messageData
-      
       username = input("What is the user you're sending to: ")
-      
       message = input("\nWhat is the message: ")
-      messageDataVar.message = message
 
-      asciiList = convertToAscii(messageDataVar.message)
+      encrypted = encryptData(username, message)
 
-      key = getUserPublicKey(username)
+      print(encrypted)
 
-      encryptedAscii = list(map(lambda x: encrypt(x, key), asciiList))
-
-      normalisedEncryptedAscii = normaliseList(encryptedAscii, messageDataVar, config)
-
-      normalisedEncryptedString = "".join(normalisedEncryptedAscii)
-
-      print("")
-      print(normalisedEncryptedString)
     
     case "3":
       username = input("What is your username: ")
