@@ -89,8 +89,22 @@ class Encrypt(QtWidgets.QWidget):
     self.messageLayout.addWidget(self.messageLayoutTitle)
     self.messageLayout.addWidget(self.messageLayoutInput)
 
+    # Encrypt Button
+    
+    # Button Layout
+    self.buttonLayout = QtWidgets.QVBoxLayout()
+    self.buttonLayout.setDirection(QBoxLayout.Direction.LeftToRight)
+
+    # Encrypt Button
+    self.buttonLayoutButton = QtWidgets.QPushButton("Encrypt!")
+
+    # Add to button layout
+    self.buttonLayout.addWidget(self.buttonLayoutButton)
+
+    # Add all layouts to main window
     self.encryptLayout.addLayout(self.recipientLayout)
     self.encryptLayout.addLayout(self.messageLayout)
+    self.encryptLayout.addLayout(self.buttonLayout)
 
 
 
