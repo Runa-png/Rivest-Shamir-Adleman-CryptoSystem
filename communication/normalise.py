@@ -13,13 +13,16 @@ def normaliseList(asciiList: list, messageClass, config):
   return normalisedList
 
 def normaliseItem(item, digits, config):
+  # if length item < digits required, add required 0s to match the required number of digits
   text = ("0" * (len(item) - digits) + item)
   textCount = len(text)
 
   maxCount = config.maxCount
 
+  # config of 99 means a max digit count of 99
   if textCount > maxCount:
     print("Encryption length is too long for allocated digitCount in config class")
     exit()
   else:
+    # Adds the count of how many digits per block specified in config 
     return ("0" * (len(str(maxCount)) - len(str(textCount))) + str(textCount) + text)

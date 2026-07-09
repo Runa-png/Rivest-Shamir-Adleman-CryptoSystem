@@ -6,7 +6,7 @@ def genKeys(config):
   # Prime one and prime two
   print(config.digitCount)
 
-  p,q = uniquePrime((int(len(str(config.message)) / 2) + 1) * config.digitCount)
+  p,q = uniquePrime(config.digitCount)
 
   n = p * q
 

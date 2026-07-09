@@ -1,6 +1,4 @@
 def splitString(message, count):
-  print(message, count)
-
   resultingList = []
 
   # This is the amount of characters allocated to showing digit count
@@ -15,10 +13,8 @@ def splitString(message, count):
     ## Then the full block
     characterWithCount = message[0:int(digits)+digitCount]
 
-    # Remove the counter
+    # Remove the counter so its jsut ascii of the character
     character = characterWithCount[digitCount:]
-
-    print(character) # and thats the encrypted character
 
     resultingList.append(character)
 

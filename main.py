@@ -11,6 +11,26 @@ from communication.fetchKeys import getUserPrivateKey, getUserPublicKey
 from communication.normalise import normaliseList
 from communication.splitString import splitString
 
+def decryptData(username, message):
+  config = Config
+  messageDataVar = messageData
+
+  key = getUserPrivateKey(username)
+
+  messageDataVar.message = encrypted
+
+  splitMessageList = splitString(messageDataVar.message, config.maxCount)
+
+  splitMessageListInt = map(int, splitMessageList)
+  
+  decryptedAsciiList = list(map(lambda x: decrypt(x, key), splitMessageListInt))
+
+  decryptedCharacterList = list(map(chr, decryptedAsciiList))
+
+  decryptedString = "".join(decryptedCharacterList)
+  
+  return (decryptedString)
+
 class Config:
   # Choose how many digits the prime numbers should have
   digitCount = 4
@@ -21,40 +41,7 @@ class messageData:
   message = ""
   length = 0
 
-def main():
-  config = Config()
-
-  unencryptedMessage = (config.message)
-
-  isString = False
-  config.digitCount = 7
-
-  private, public = genKeys(config)
-  print(f"Public Key: {public}")
-
-  config.convert()
-
-  message = int(config.message)
-
-  ## Encrypt
-  encrypted = encrypt(message, public)
-
-  ## Decrypt
-  decrypted = decrypt(encrypted, private)
-
-  ## Reverse convert to integers
-  decryptedString = convertInt(decrypted, 8)
-
-
-  print(f" Message:  {unencryptedMessage} \n Encrypted: {encrypted} \n Decrypted: {decryptedString}")
-
-
 if __name__ == '__main__':
-  # flag = True
-  # while flag:
-  #   main()
-  #   flag = False
-
   generateTable()
 
   print("___ASYMETRIC___CIPHER___")
@@ -96,31 +83,15 @@ if __name__ == '__main__':
       print(normalisedEncryptedString)
     
     case "3":
-      config = Config
-      messageDataVar = messageData
-
       username = input("What is your username: ")
-      key = getUserPrivateKey(username)
-
       encrypted = input("Encrypted message: ")
-      messageDataVar.message = encrypted
 
-      print(messageDataVar.message)
+      decrypted = decryptData(username, encrypted)
 
-      splitMessageList = splitString(messageDataVar.message, config.maxCount)
-      print(splitMessageList)
-
-      splitMessageListInt = map(int, splitMessageList)
-      
-      decryptedAsciiList = list(map(lambda x: decrypt(x, key), splitMessageListInt))
-      print(decryptedAsciiList)
-
-      decryptedCharacterList = list(map(chr, decryptedAsciiList))
-      print(decryptedCharacterList)
-
-      decryptedString = "".join(decryptedCharacterList)
-      print(decryptedString)
+      print("Message: ", str(decrypted))
 
     case _:
       print("Invalid Option")
+
+
 
