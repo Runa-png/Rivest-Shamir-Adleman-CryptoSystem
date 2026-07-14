@@ -106,8 +106,65 @@ class Encrypt(QtWidgets.QWidget):
     self.encryptLayout.addLayout(self.messageLayout)
     self.encryptLayout.addLayout(self.buttonLayout)
 
+class Decrypt(QtWidgets.QWidget):
+  def __init__(self):
+    super().__init__()
 
+    # Main Box
+    self.decryptLayout = QtWidgets.QVBoxLayout(self)
 
+    # Main Box Children
+    
+    # User chooses recipient
+    self.recipientLayout = QtWidgets.QVBoxLayout()
+    self.recipientLayout.setDirection(QBoxLayout.Direction.LeftToRight) 
+
+    # Recipient title
+    self.recipientLayoutTitle = QtWidgets.QLabel("Private key")
+    self.recipientLayoutTitle.setMaximumWidth(400)
+    
+    # Recipient Input
+    self.recipientLayoutInput = QtWidgets.QTextEdit()
+    self.recipientLayoutInput.setMaximumWidth(400)
+    self.recipientLayoutInput.setMaximumHeight(30)
+
+    # Add widgets for recipient layout
+    self.recipientLayout.addWidget(self.recipientLayoutTitle)
+    self.recipientLayout.addWidget(self.recipientLayoutInput)
+
+    # Message Input
+    self.messageLayout = QtWidgets.QVBoxLayout()
+    self.messageLayout.setDirection(QBoxLayout.Direction.LeftToRight)
+
+    # Message Title
+    self.messageLayoutTitle = QtWidgets.QLabel("Message")
+    self.messageLayoutTitle.setMaximumWidth(400)
+
+    # Message Input
+    self.messageLayoutInput = QtWidgets.QTextEdit()
+    self.messageLayoutInput.setMaximumWidth(400)
+    self.messageLayoutInput.setMaximumHeight(300)
+
+    # Add widgets to the message layout
+    self.messageLayout.addWidget(self.messageLayoutTitle)
+    self.messageLayout.addWidget(self.messageLayoutInput)
+
+    # Decrypt Button
+    
+    # Button Layout
+    self.buttonLayout = QtWidgets.QVBoxLayout()
+    self.buttonLayout.setDirection(QBoxLayout.Direction.LeftToRight)
+
+    # Decrypt Button
+    self.buttonLayoutButton = QtWidgets.QPushButton("Decrypt!")
+
+    # Add to button layout
+    self.buttonLayout.addWidget(self.buttonLayoutButton)
+
+    # Add all layouts to main window
+    self.decryptLayout.addLayout(self.recipientLayout)
+    self.decryptLayout.addLayout(self.messageLayout)
+    self.decryptLayout.addLayout(self.buttonLayout)
 
 if __name__ == '__main__':
   print("Generating GUI")
@@ -119,10 +176,11 @@ if __name__ == '__main__':
   # Add each page
   login = widgets.addWidget(Login())
   encrypt = widgets.addWidget(Encrypt())
+  decrypt = widgets.addWidget(Decrypt())
 
   widgets.resize(800,600)
   widgets.show()
 
-  (widgets.setCurrentIndex(encrypt))
+  (widgets.setCurrentIndex(decrypt))
 
   sys.exit(app.exec())
